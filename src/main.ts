@@ -1,4 +1,4 @@
-import {getInput, error, setFailed} from '@actions/core'
+import {getInput, setOutput, error, setFailed} from '@actions/core'
 import {XMLParser} from 'fast-xml-parser'
 import {existsSync, readFileSync} from 'fs'
 import {readFile, writeFile} from 'fs/promises'
@@ -362,6 +362,16 @@ export async function run(): Promise<{summary: string; details: string}> {
         </details>`)
       details.push('')
       details.push('')
+
+      setOutput('statements', summaryMetric.statements)
+      setOutput('coveredstatements', summaryMetric.coveredstatements)
+      setOutput(
+        'percentage',
+        (
+          (summaryMetric.coveredstatements / summaryMetric.statements || 0) *
+          100
+        ).toPrecision(4)
+      )
     }
   } catch (e) {
     if (e instanceof Error) setFailed(e.message)
@@ -369,6 +379,7 @@ export async function run(): Promise<{summary: string; details: string}> {
 
   await writeFile(path.resolve('code-coverage-summary.md'), summary.join('\n'))
   await writeFile(path.resolve('code-coverage-details.md'), details.join('\n'))
+
   return {
     summary: summary.join('\n'),
     details: details.join('\n')

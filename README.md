@@ -19,6 +19,19 @@ A path to the code coverage file to analyse. Also supports using glob patterns t
 
 ## Outputs
 
+### `statements`
+
+The total number of statements from the Total Summary
+
+### `coveredstatements`
+
+The total number of statements that were covered from the Total Summary
+
+### `percentage`
+
+The percentage statements that were covered from the Total Summary
+
+
 
 ### Markdown Example Summary
 
