@@ -8,6 +8,13 @@ inputs:
   filename:
     description: 'Path and filename of the cobertura coverage report'
     required: true
+outputs:
+  statements:
+    description: 'The total number of statements from the Total Summary'
+  coveredstatements:
+    description: 'The total number of statements that were covered from the Total Summary'
+  percentage:
+    description: 'The percentage statements that were covered from the Total Summary'
 runs:
   using: 'node20'
   main: 'dist/index.js'
